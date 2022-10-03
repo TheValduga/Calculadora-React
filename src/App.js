@@ -20,8 +20,10 @@ function Calculator() {
   const [current,setCurrent] = useState('')
   const [operation,setOperation] = useState('')
 
-  const addDigit = () => {
-
+  const addDigit = (e) => {
+    const digit = e.target.value
+    console.log(digit)
+    setCurrent = current + digit
   }
 
   function processOperation() {
@@ -32,7 +34,7 @@ function Calculator() {
     <div id='calc'>
       <h3>Calculadora</h3>
       <Display previous={previous} current={current}/>
-      <Buttons setPrevious={setPrevious} setCurrent={setCurrent}/>
+      <Buttons op={processOperation} digit={addDigit}/>
     </div>
   )
 }
@@ -47,32 +49,27 @@ function Display(props) {
 }
 
 function Buttons(props) {
-  
-  const handleClick= (event) => {
-    const value = event.target.innerText
-  }
-
   return (
     <div id='buttons_container'>
-      <button class="op">CE</button>
-      <button class="op">C</button>
-      <button class="op">DEL</button>
-      <button class="op">/</button>
-      <button class="number">7</button>
-      <button class="number">8</button>
-      <button class="number">9</button>
-      <button class="op">*</button>
-      <button class="number">4</button>
-      <button class="number">5</button>
-      <button class="number">6</button>
-      <button class="op">-</button>
-      <button class="number">1</button>
-      <button class="number">2</button>
-      <button class="number">3</button>
-      <button class="op">+</button>
-      <button class="number">0</button>
-      <button class="number">,</button>
-      <button id="equal">=</button>
+      <button className="op" onClick={props.op}>CE</button>
+      <button className="op" onClick={props.op}>C</button>
+      <button class="op" onClick={props.op}>DEL</button>
+      <button class="op" onClick={props.op}>/</button>
+      <button class="number" onClick={props.digit}>7</button>
+      <button class="number" onClick={props.digit}>8</button>
+      <button class="number" onClick={props.digit}>9</button>
+      <button class="op" onClick={props.op}>*</button>
+      <button class="number" onClick={props.digit}>4</button>
+      <button class="number" onClick={props.digit}>5</button>
+      <button class="number" onClick={props.digit}>6</button>
+      <button class="op" onClick={props.op}>-</button>
+      <button class="number" onClick={props.digit}>1</button>
+      <button class="number" onClick={props.digit}>2</button>
+      <button class="number" onClick={props.digit}>3</button>
+      <button class="op" onClick={props.op}>+</button>
+      <button class="number" onClick={props.digit}>0</button>
+      <button class="number" onClick={props.digit}>,</button>
+      <button id="equal" onClick={props.op}>=</button>
     </div>
   )
 }
