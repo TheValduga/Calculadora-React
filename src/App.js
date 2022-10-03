@@ -20,7 +20,7 @@ function Calculator() {
   const [current,setCurrent] = useState('')
   const [operation,setOperation] = useState('')
 
-  addDigit = () => {
+  const addDigit = () => {
 
   }
 
@@ -48,8 +48,8 @@ function Display(props) {
 
 function Buttons(props) {
   
-  function handleClick() {
-
+  const handleClick= (event) => {
+    const value = event.target.innerText
   }
 
   return (
