@@ -1,22 +1,38 @@
+// Calculadora react
+// Lucas Gusmão Valduga
 
+import { useState } from "react";
 import './App.css';
 
 function App() {
-  document.title='ReactCalc'
+  document.title='ReactCalc';
+
   return (
     <div className="App">
       <h1>Lucas Gusmão Valduga</h1>
-      <Calculador />
+      <Calculator />
     </div>
   );
 }
 
-function Calculador(props) {
+function Calculator() {
+  const [previous,setPrevious] = useState('')
+  const [current,setCurrent] = useState('')
+  const [operation,setOperation] = useState('')
+
+  addDigit = () => {
+
+  }
+
+  function processOperation() {
+    
+  }
+
   return (
     <div id='calc'>
       <h3>Calculadora</h3>
-      <Display />
-      <Buttons />
+      <Display previous={previous} current={current}/>
+      <Buttons setPrevious={setPrevious} setCurrent={setCurrent}/>
     </div>
   )
 }
@@ -24,13 +40,18 @@ function Calculador(props) {
 function Display(props) {
   return (  
     <div id='display'> 
-      <div id='previous'>previous test</div>
-      <div id='current'>current test</div>
+      <div id='previous'>{props.previous}</div>
+      <div id='current'>{props.current}</div>
     </div>
   )
 }
 
 function Buttons(props) {
+  
+  function handleClick() {
+
+  }
+
   return (
     <div id='buttons_container'>
       <button class="op">CE</button>
