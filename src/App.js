@@ -25,7 +25,7 @@ function Calculator() {
   }
 
   function processOperation() {
-    
+
   }
 
   return (
