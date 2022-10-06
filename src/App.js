@@ -1,6 +1,7 @@
 // Calculadora react
 // Lucas Gusmão Valduga
 
+
 import { useState } from "react";
 import './App.css';
 
@@ -20,13 +21,40 @@ function Calculator() {
   const [current,setCurrent] = useState('')
   const [operation,setOperation] = useState('')
 
-  const addDigit = (e) => {
-    const digit = e.target.value
-    console.log(digit)
-    setCurrent = current + digit
+  function handleClick(e) {
+    const value= e.target.innerText;
+    if (+value >= 0 || value === ',') {
+      addDigit(value);
+    } else if(value.substr(0,1) === 'C') {
+      clean(value);
+    } else if (value === 'DEL') {
+      del();
+    } else {
+      processOperation(value);
+    }
   }
 
-  function processOperation() {
+  function del() {
+    setCurrent(current.slice(0,-1));
+  }
+
+  function clean(value) {
+    setCurrent('');
+    if (value.length === 1) {
+      setPrevious('');
+      setOperation('');
+    }
+  }
+
+  function addDigit(value) {
+    if (current.includes(',') && value ===',') {
+      return
+    }
+    setCurrent(current+value);
+    
+  }
+
+  function processOperation(value) {
 
   }
 
@@ -34,7 +62,7 @@ function Calculator() {
     <div id='calc'>
       <h3>Calculadora</h3>
       <Display previous={previous} current={current}/>
-      <Buttons op={processOperation} digit={addDigit}/>
+      <Buttons func={handleClick}/>
     </div>
   )
 }
@@ -49,27 +77,28 @@ function Display(props) {
 }
 
 function Buttons(props) {
+  
   return (
     <div id='buttons_container'>
-      <button className="op" onClick={props.op}>CE</button>
-      <button className="op" onClick={props.op}>C</button>
-      <button class="op" onClick={props.op}>DEL</button>
-      <button class="op" onClick={props.op}>/</button>
-      <button class="number" onClick={props.digit}>7</button>
-      <button class="number" onClick={props.digit}>8</button>
-      <button class="number" onClick={props.digit}>9</button>
-      <button class="op" onClick={props.op}>*</button>
-      <button class="number" onClick={props.digit}>4</button>
-      <button class="number" onClick={props.digit}>5</button>
-      <button class="number" onClick={props.digit}>6</button>
-      <button class="op" onClick={props.op}>-</button>
-      <button class="number" onClick={props.digit}>1</button>
-      <button class="number" onClick={props.digit}>2</button>
-      <button class="number" onClick={props.digit}>3</button>
-      <button class="op" onClick={props.op}>+</button>
-      <button class="number" onClick={props.digit}>0</button>
-      <button class="number" onClick={props.digit}>,</button>
-      <button id="equal" onClick={props.op}>=</button>
+      <button className="op" onClick={props.func}>CE</button>
+      <button className="op"  onClick={props.func}>C</button>
+      <button className="op"  onClick={props.func}>DEL</button>
+      <button className="op"  onClick={props.func}>/</button>
+      <button className="number"  onClick={props.func}>7</button>
+      <button className="number"  onClick={props.func}>8</button>
+      <button className="number"  onClick={props.func}>9</button>
+      <button className="op"  onClick={props.func}>*</button>
+      <button className="number"  onClick={props.func}>4</button>
+      <button className="number"  onClick={props.func}>5</button>
+      <button className="number"  onClick={props.func}>6</button>
+      <button className="op"  onClick={props.func}>-</button>
+      <button className="number"  onClick={props.func}>1</button>
+      <button className="number"  onClick={props.func}>2</button>
+      <button className="number"  onClick={props.func}>3</button>
+      <button className="op"  onClick={props.func}>+</button>
+      <button className="number"  onClick={props.func}>0</button>
+      <button className="number"  onClick={props.func}>,</button>
+      <button id="equal" onClick={props.func}>=</button>
     </div>
   )
 }
