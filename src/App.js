@@ -19,12 +19,11 @@ function App() {
 function Calculator() {
   const [previous, setPrevious] = useState('')
   const [current, setCurrent] = useState('')
-  const [result, setResult] = useState('')
-  const [operation, setOperation] = useState('')
+  const [comma,setComma] = useState(true)
 
   function handleClick(e) {
     const value = e.target.innerText;
-    if (+value >= 0 || value === ',') {
+    if (+value >= 0 || value === '.') {
       addDigit(value);
     } else if (value.substr(0, 1) === 'C') {
       clean(value);
@@ -42,65 +41,30 @@ function Calculator() {
   function clean(value) {
     setCurrent('');
     if (value.length === 1) {
-      setPrevious('');
-      setResult('');
-      setOperation('')
+      setPrevious('')
+      setComma(true)
     }
   }
 
   function addDigit(value) {
 
-    if (current.includes(',') && value === ',') {
+    if (comma === false && value === '.') {
       return
     }
-    if (previous === '') {
-      setCurrent('')
-    }
     setCurrent(current + value);
-
   }
 
   function processOperation(value) {
-    
-
-      if (value === '=') {
-        let a = previous+current
-        a = eval(a)
-        console.log(a)
-        setResult(a);
-        console.log(result)
-        setPrevious('')
-        setCurrent(a)
-      } else {
-        setPrevious(current+value)
-        setCurrent(result)
-      }
-      
-    }
-
-    /*if (current === result || current === '') {
-      return;
+    if (value === '=') {
+      const tempRes = eval(current)
+      setPrevious(current+' = '+tempRes)
+      setCurrent('')
     } else {
-      if (value != '=') {
-        if (current === '') {
-          setPrevious(current+value)
-          // setOperation(value);
-          setCurrent('')
-        } else {
-          let x = previous+current
-          setResult(eval(x));
-          setPrevious(previous+current+value);
-          setCurrent(result);
-          // setOperation(value)
-        }
-      } else {
-        setResult(eval(previous+current));
-        setPrevious('')
-        setCurrent(result)
-      }
-    }*/
+      setCurrent(current+' '+value+' ')
+      setComma(true)
+    }
+  }
   
-
   return (
     <div id='calc'>
       <h3>Calculadora</h3>
@@ -140,7 +104,7 @@ function Buttons(props) {
       <button className="number" onClick={props.func}>3</button>
       <button className="op" onClick={props.func}>+</button>
       <button className="number" onClick={props.func}>0</button>
-      <button className="number" onClick={props.func}>,</button>
+      <button className="number" onClick={props.func}>.</button>
       <button id="equal" onClick={props.func}>=</button>
     </div>
   )
